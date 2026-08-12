@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard</title>
+
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+
+<body>
+
+    <div class="dashboard">
+
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div>
+                <h1>Dashboard</h1>
+                <p class="subtitle">Manage your tasks and stay organized.</p>
+            </div>
+
+            <button class="logout-btn" onclick="logout()">
+                Logout
+            </button>
+        </header>
+
+
+        <!-- User Card -->
+        <section class="user-card">
+
+            <div class="avatar" id="avatar">
+                U
+            </div>
+
+            <div class="user-info">
+                <span>Welcome back 👋</span>
+
+                <h2 id="userName">User</h2>
+
+                <p id="userEmail">email@example.com</p>
+            </div>
+
+        </section>
+
+
+        <!-- Todo Section -->
+        <section class="todo-section">
+
+            <div class="section-heading">
+                <div>
+                    <h2>My Todos</h2>
+                    <p>Add and manage your tasks.</p>
+                </div>
+
+                <span class="todo-count" id="todoCount">
+                    0 Tasks
+                </span>
+            </div>
+
+
+            <!-- Add Todo -->
+            <div class="todo-form">
+
+                <div class="input-group">
+                    <label for="todoTitle">Title</label>
+
+                    <input
+                        type="text"
+                        id="todoTitle"
+                        placeholder="e.g. Complete Node.js project"
+                    >
+                </div>
+
+
+                <div class="input-group">
+                    <label for="todoDescription">Description</label>
+
+                    <input
+                        type="text"
+                        id="todoDescription"
+                        placeholder="Add some details..."
+                    >
+                </div>
+
+
+                <button class="add-btn" onclick="createTodo()">
+                    + Add Todo
+                </button>
+
+            </div>
+
+
+           <!-- Todo List -->
+<div class="todo-list" id="todoList">
+
+    <!-- <div class="todo-card">
+
+        <div class="todo-content">
+            <h3>Learn JavaScript</h3>
+            <p>Complete JavaScript practice and revise functions.</p>
+        </div>
+
+        <div class="todo-actions">
+            <button class="edit-btn">Edit</button>
+            <button class="delete-btn">Delete</button>
+        </div>
+
+    </div> -->
+
+</div>
+
+        </section>
+
+    </div>
+
+
+    <script src="dashboard.js"></script>
+
+</body>
+
+</html>
