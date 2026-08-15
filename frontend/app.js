@@ -45,7 +45,7 @@ const signup= async()=>{
         } 
         
         
-       const response= await fetch("http://localhost:4000/sign-up",{
+       const response= await fetch("https://full-stack-crud-todo-app.vercel.app/sign-up",{
             method:"POST",
             headers: {
                 "Content-Type": "application/json"

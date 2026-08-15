@@ -11,7 +11,7 @@ const getProfile= async()=>{
     try {
         const token=localStorage.getItem("token")
     console.log(token);
-    const response=await fetch("http://localhost:4000/profile",{
+    const response=await fetch("https://full-stack-crud-todo-app.vercel.app/profile",{
 method:"GET",
 headers:{
     Authorization:`Bearer ${token}`
@@ -55,7 +55,7 @@ const gettodo=async()=>{
         const token = localStorage.getItem("token");
         const todoCount=document.getElementById("todoCount")
     
-    const getresponse = await fetch("http://localhost:4000/todo", {
+    const getresponse = await fetch("https://full-stack-crud-todo-app.vercel.app/todo", {
         method: "GET",
         headers: {
             Authorization: `Bearer ${token}`
@@ -110,7 +110,7 @@ const createTodo = async () => {
     const token = localStorage.getItem("token");
 
     // POST
-    const response = await fetch("http://localhost:4000/todo", {
+    const response = await fetch("https://full-stack-crud-todo-app.vercel.app/todo", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -173,7 +173,7 @@ const edittodo = async (ele) => {
 
     const token = localStorage.getItem("token");
 
-    const response = await fetch(`http://localhost:4000/todo/${ele}`, {
+    const response = await fetch(`https://full-stack-crud-todo-app.vercel.app/todo/${ele}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
@@ -218,7 +218,7 @@ const confirmDelete = await Swal.fire({
 if (!confirmDelete.isConfirmed) {
     return;
 }
-const response = await fetch(`http://localhost:4000/todo/${ele}`, {
+const response = await fetch(`https://full-stack-crud-todo-app.vercel.app/todo/${ele}`, {
     method: "DELETE",
     headers: {
         
@@ -268,7 +268,7 @@ window.gettodo = gettodo
 //     console.log("2. TOKEN:", token);
 
 //     try {
-//         const response = await fetch("http://localhost:4000/todo", {
+//         const response = await fetch("https://full-stack-crud-todo-app.vercel.app/todo", {
 //             method: "GET",
 //             headers: {
 //                 Authorization: `Bearer ${token}`
