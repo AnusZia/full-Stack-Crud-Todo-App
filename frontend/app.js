@@ -36,7 +36,11 @@ const signup= async()=>{
         }
         console.log(userObj);
         if (!fullName || !email|| !password) {
-            alert("required field are missing")
+            Swal.fire({
+                title: "Missing Fields!",
+                text: "Please fill in all required fields.",
+                icon: "warning"
+            });
             return
         } 
         
@@ -55,13 +59,20 @@ const signup= async()=>{
          console.log(result);
     
          if (result.status) {
-            alert("sign-up success")
-
-            window.location.href="./login.html"
-            
+            Swal.fire({
+                title: "Account Created!",
+                text: "Your account has been created successfully.",
+                icon: "success"
+            }).then(() => {
+                window.location.href = "./login.html";
+            });
          }
     else{
-        alert(result.message)
+        Swal.fire({
+            title: result.message,
+         
+            icon: "error"
+        });
     }
    } catch (error) {
     alert(error.message)

@@ -322,7 +322,7 @@ try {
     else{
         const upadtedData=await TodoModel.findByIdAndUpdate (todoId,body,{new: true}) 
         res.json({
-            message:"Edit Scuccesfully",
+            message:"Todo Updated",
             Status:true,
             data:upadtedData
           

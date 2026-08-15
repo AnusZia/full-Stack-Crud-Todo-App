@@ -38,17 +38,28 @@ const response= await fetch("http://localhost:4000/login",{
         
             localStorage.setItem("token",  result.token)
             // localStorage.setItem("user", JSON.stringify( result.data))
-            alert("Login succesfully",)
-           console.log( result.data.fullName);
-          
-           
-            window.location.href="./dashboard.html"
+            // alert("Login succesfully",)
+            Swal.fire({
+                title: "Login Successfully!",
+                text: "Welcome back",
+                icon: "success"
+            }).then(() => {
+                window.location.href = "./dashboard.html";
+            });
 
          }
          else{
-            alert(result.message)
+            Swal.fire({
+                title: "Login Failed!",
+                text: result.message,
+                icon: "error"
+            });
          }
 } catch (error) {
-    alert(error.message)
+    Swal.fire({
+        title: error.message,
+       
+        icon: "error"
+    });
 }
 }

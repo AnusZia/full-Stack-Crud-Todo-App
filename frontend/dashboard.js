@@ -2,6 +2,7 @@
 
 
 
+
 const userName=document.getElementById("userName");
 const userEmail=document.getElementById("userEmail");
 
@@ -121,13 +122,21 @@ const createTodo = async () => {
     const createResult = await response.json();
     console.log("CREATE:", createResult);
    
-alert(createResult.message)
+    Swal.fire({
+        title: createResult.message,
+        text: "Your todo was added successfully.",
+        icon: "success"
+    });
 gettodo() 
  
     // GET
  
    } catch (error) {
-    alert (error);
+    Swal.fire({
+        title: "Create Failed!",
+        text: error.message,
+        icon: "error"
+    });
    }
 
    
@@ -135,46 +144,80 @@ gettodo()
 
 };
 
-const edittodo = async (ele) =>{
-    console.log( ele)
-const editValue=prompt("edit todo value")
-const editdesc=prompt("edit decription value")
-const obj={
-    title:editValue,
-     description:editdesc
-}
-const token = localStorage.getItem("token");
+const edittodo = async (ele) => {
 
-const response = await fetch(`http://localhost:4000/todo/${ele}`, {
-    method: "PUT",
-    headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`
-    },
-    body: JSON.stringify(obj)
-});
-const editRes = await response.json();
+    console.log(ele);
 
-    console.log("CREATE:", editRes.Status);
-    
+    const result = await Swal.fire({
+        title: "Edit Todo",
+        html: `
+            <input id="swal-title" class="swal2-input" placeholder="Todo title">
+            <input id="swal-description" class="swal2-input" placeholder="Todo description">
+        `,
+        showCancelButton: true,
+        confirmButtonText: "Update",
+        cancelButtonText: "Cancel"
+    });
+
+    if (!result.isConfirmed) {
+        return;
+    }
+
+    const editValue = document.getElementById("swal-title").value;
+    const editdesc = document.getElementById("swal-description").value;
+
+    const obj = {
+        title: editValue,
+        description: editdesc
+    };
+
+    const token = localStorage.getItem("token");
+
+    const response = await fetch(`http://localhost:4000/todo/${ele}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(obj)
+    });
+
+    const editRes = await response.json();
+
+    console.log("UPDATE:", editRes.Status);
 
     if (!editRes.Status) {
-        alert(error.message)
+        Swal.fire({
+            title: "Update Failed!",
+            text: editRes.message,
+            icon: "error"
+        });
+    } else {
+        Swal.fire({
+            title: editRes.message,
+            text: "Your todo was updated successfully.",
+            icon: "success"
+        });
+
+        gettodo();
     }
-
-    else{
-        alert(editRes.message)
-        gettodo() 
-       
-    }
-
-
-}
+};
 const deletetodo = async (ele) =>{
     console.log( ele)
 
 const token = localStorage.getItem("token");
+const confirmDelete = await Swal.fire({
+    title: "Are you sure?",
+    text: "You won't be able to recover this todo!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "Yes, delete it!",
+    cancelButtonText: "Cancel"
+});
 
+if (!confirmDelete.isConfirmed) {
+    return;
+}
 const response = await fetch(`http://localhost:4000/todo/${ele}`, {
     method: "DELETE",
     headers: {
@@ -193,10 +236,21 @@ const response = await fetch(`http://localhost:4000/todo/${ele}`, {
     console.log(result.message);
     
     if (!result.Status) {
-        alert(error.message)
+        Swal.fire({
+            title: "Delete Failed!",
+            text: result.message,
+            icon: "error"
+        });
     } else {
 
-        alert(result.message);
+    
+
+    await Swal.fire({
+        title: "Deleted!",
+        text: result.message,
+        icon: "success"
+    });
+
         gettodo();
     }
 
