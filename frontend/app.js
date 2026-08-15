@@ -64,7 +64,7 @@ const signup= async()=>{
                 text: "Your account has been created successfully.",
                 icon: "success"
             }).then(() => {
-                window.location.href = "./login.html";
+                window.location.href = "./index.html";
             });
          }
     else{

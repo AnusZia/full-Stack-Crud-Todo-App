@@ -34,7 +34,7 @@ headers:{
 const routeAuth=(()=>{
     const token=localStorage.getItem("token")
 if (!token) {
-    window.location.href="./login.html"
+    window.location.href="./index.html"
 }
 
 
@@ -46,7 +46,7 @@ getProfile()
 const logout=()=>{
     
     localStorage.removeItem("token");
-    window.location.href="./login.html"
+    window.location.href="./index.html"
 }
 
 const gettodo=async()=>{
