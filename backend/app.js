@@ -77,8 +77,8 @@ const URI = process.env.MONGO_URI;
 
 mongoose.connect(URI)
     .then(() => console.log("MongoDB Connected"))
-    .catch(err => console.log(err));
-
+    .catch(err => console.log("MongoDB ERROR:", err));
+    console.log("MONGO URI EXISTS:", !!process.env.MONGO_URI);
     
 
 //     app.post("/create-std", async (req,res)=>{
