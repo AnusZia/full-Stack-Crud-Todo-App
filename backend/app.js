@@ -77,7 +77,7 @@ const URI = process.env.MONGO_URI;
 
 mongoose.connect(URI)
     .then(() => console.log("MongoDB Connected"))
-    .catch(err => console.log("MongoDB ERROR:", err));
+    .catch(err => console.log("MongoDB ERROr:", err));
     console.log("MONGO URI EXISTS:", !!process.env.MONGO_URI);
     
 
