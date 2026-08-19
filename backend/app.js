@@ -70,7 +70,7 @@ import { setServers } from "node:dns/promises";
 app.use(express.json());
 app.use(cors());
 
-setServers(["8.8.8.8", "1.1.1.1"]);
+// setServers(["8.8.8.8", "1.1.1.1"]);
 import userModel from "./models/user.js";
 
 const URI = process.env.MONGO_URI;
