@@ -1,5 +1,6 @@
 import "dotenv/config";
 import http from"http";
+import nodemailer from "nodemailer"
 import fs from "fs"
 import  express, { application, json, response }  from "express";
 import { log } from "console";
@@ -101,6 +102,7 @@ mongoose.connect(URI)
 //     });
 
 app.post("/sign-up", async (request, response) => {
+    console.log("SIGNUP API HIT")
 try {
         
 console.log(request.body);
@@ -142,18 +144,77 @@ const obj={
 }
 
 await userModel.create(obj)
+const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASSWORD
+    }
+});
+
+console.log("ABOUT TO SEND EMAIL");
+console.log("Sending to:", email);
+
+await transporter.sendMail({
+    from: process.env.EMAIL_USER,
+    to: email,
+    subject: "🎉 Welcome to Our App!",
+    html:  `
+    <div style="margin:0; padding:30px 15px; background:#f5f5f5; font-family:Arial, sans-serif;">
+    
+        <div style="max-width:500px; margin:auto; background:#ffffff; padding:30px; border-radius:12px;">
+    
+            <h2 style="margin:0 0 15px; color:#222;">
+                Welcome, ${fullName}! 👋
+            </h2>
+    
+            <p style="color:#555; font-size:15px; line-height:1.6;">
+                Thanks for signing up!
+            </p>
+    
+            <p style="color:#555; font-size:15px; line-height:1.6;">
+                Your account has been created successfully. 
+                You can now log in and start using the application.
+            </p>
+    
+            <div style="margin:25px 0; padding:15px; background:#f7f7f7; border-radius:8px;">
+                <p style="margin:0; color:#333;">
+                    <strong>Email:</strong> ${email}
+                </p>
+            </div>
+    
+            <p style="color:#777; font-size:14px; line-height:1.5;">
+                Hope you enjoy using the app! 🚀
+            </p>
+    
+            <p style="margin-top:25px; color:#555; font-size:14px;">
+                Thanks,<br>
+                <strong>Anas</strong>
+            </p>
+    
+        </div>
+    
+    </div>
+    `
+
+});
+
+console.log("EMAIL SENT");
+
+console.log("EMAIL SENT");
 response.json({
     message: "user singup success",
     status:true
     
 });
 } catch (error) {
+    console.log("email error", error);
     response.json({
         message: "something went wrong",
         status:false
         
     });
-    console.log(error);
+   
 }
 
 
@@ -381,7 +442,7 @@ app.delete("/todo/:id", isAuth, async (req, res) => {
 
   
 
-
+  
 
 app.listen(PORT, () => {
     console.log(`server running on http://localhost:${PORT}`);
